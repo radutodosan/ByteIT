@@ -1,18 +1,16 @@
 <div [@slideInUpOnEnter]="1" class="table-container">
   <table  mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-
     <!-- Position Column -->
     <ng-container matColumnDef="position">
       <th mat-header-cell *matHeaderCellDef> No. </th>
       <td mat-cell *matCellDef="let element"> {{element.position}} </td>
     </ng-container>
 
+    <!-- Photo Column -->
     <ng-container matColumnDef="photo">
       <th mat-header-cell *matHeaderCellDef> Photo </th>
-      <td mat-cell *matCellDef="let element"> <img src="{{element.photo}}" style="height: 40px;width: 40px;border-radius: 40px"> </td>
+      <td mat-cell *matCellDef="let element"> <img src="{{element.photo}}" alt="https://robohash.org/hehehe?bgset=bg1" style="height: 40px;width: 40px;border-radius: 40px"> </td>
     </ng-container>
 
     <!-- Name Column -->
@@ -21,16 +19,16 @@
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
 
-    <!-- Weight Column -->
+    <!-- Level Column -->
     <ng-container matColumnDef="level">
       <th mat-header-cell *matHeaderCellDef> Level </th>
       <td mat-cell *matCellDef="let element"> {{element.level}} </td>
     </ng-container>
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="problemsSolved">
-      <th mat-header-cell *matHeaderCellDef> Problems Solved </th>
-      <td mat-cell *matCellDef="let element"> {{element.problemsSolved}} </td>
+    <!-- Exercises Column -->
+    <ng-container matColumnDef="exercisesSolved">
+      <th mat-header-cell *matHeaderCellDef> Exercises Solved </th>
+      <td mat-cell *matCellDef="let element"> {{element.exercisesSolved}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
