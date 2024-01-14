@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { trigger, transition, style, animate } from '@angular/animations';
 
@@ -15,7 +15,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
     ]),
   ],
 })
-export class WhiteboardComponent {
+export class WhiteboardComponent implements AfterViewInit{
 
 
   constructor(private router: Router) {}

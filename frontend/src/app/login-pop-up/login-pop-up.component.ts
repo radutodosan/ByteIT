@@ -5,6 +5,7 @@ import {AuthenticationService} from "../services/authentication.service";
 import {AlertType} from "../enums/alert-type";
 import {AlertService} from "../services/alert.service";
 import { HttpClient } from '@angular/common/http';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login-pop-up',
@@ -23,7 +24,8 @@ export class LoginPopUpComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
     private alertService: AlertService,
-    private http:HttpClient
+    private http:HttpClient,
+    private router: Router
   ) {
     this.animate();
   }
@@ -79,9 +81,13 @@ loginUser(){
         this.closeModal();
         this.showAlert(AlertType.SUCCESS,'Login Successful!');
         setTimeout(() => {
-          // Reload the page after showing the notification
-          window.location.reload();
+
         }, 1500);
+        // Reload the page after showing the notification
+        const currentUrl = this.router.url;
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate([currentUrl]);
+        });
         console.log("User: " + username + "\nName: " + fullname +"\nEmail: " + email + "\nSubscription: " + subscription, "\nLevel: " + level);
       }
 

@@ -30,7 +30,7 @@ export class AuthenticationService {
       email:email,
       subscription:subscription,
       level:level,
-      pictureUrl:"https://robohash.org/hehehe?bgset=bg1"
+      picture_url:"https://robohash.org/hehehe?bgset=bg1"
     }
     localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
 

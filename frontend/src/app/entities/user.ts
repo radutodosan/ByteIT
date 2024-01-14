@@ -8,6 +8,6 @@ export interface User {
   email: string
   subscription: Subscriptions
   level:Levels
-  pictureUrl : string
+  picture_url : string
 
 }
