@@ -1,0 +1,17 @@
+<ng-whiteboard (mousemove)="eraseContent($event)">
+
+    <canvas #whiteboardCanvas></canvas>
+    
+</ng-whiteboard>
+
+<!-- <form>
+    <button style="background-color: red;" (onClick)="refreshPage()">ERASE ALL</button>
+</form> -->
+
+<button (mousedown)="eraseContent($event)">Eraser</button>
+
+<form [@fadeAnimation]>
+    <button style="background-color: red;" (onClick)="refreshPage()">ERASE ALL</button>
+   
+</form>
+  
