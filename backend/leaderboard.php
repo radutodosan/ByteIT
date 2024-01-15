@@ -22,11 +22,10 @@ $dbname_conn = "byteit_database";
 $conn = mysqli_connect($my_server, $username_conn, $password_conn, $dbname_conn);
 
 
-$datas = [];
 $table_name = 'users';
-
-
 $sql = "SELECT * from ".$table_name." ORDER BY exercises_solved DESC";
+
+$datas = [];
 
 if($result = mysqli_query($conn,$sql)){
     $cr = 0;

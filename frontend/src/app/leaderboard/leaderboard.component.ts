@@ -34,7 +34,8 @@ export class LeaderboardComponent implements OnInit{
   dataSource = TABLE_DATA
 
   allUsers$: Observable<User[]> | undefined;
-  position = 0;
+
+  users:User[] = [];
 
   constructor(
     private authService: AuthenticationService
@@ -44,6 +45,11 @@ export class LeaderboardComponent implements OnInit{
   ngOnInit(): void {
     this.allUsers$ = this.authService.getAllUsers()
 
-    console.log(this.allUsers$);
+    const observable$ = this.authService.getAllUsers()
+    observable$.subscribe(users => {
+      this.users = users.data;
+      console.log(this.users);
+    })
+
   }
 }

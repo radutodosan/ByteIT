@@ -1,5 +1,5 @@
 <div [@slideInUpOnEnter]="1" class="table-container">
-  <table  mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table  mat-table [dataSource]="users" class="mat-elevation-z8">
 
     <!-- Position Column -->
     <ng-container matColumnDef="position">
@@ -16,7 +16,7 @@
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.fullname}} </td>
     </ng-container>
 
     <!-- Level Column -->
@@ -28,7 +28,7 @@
     <!-- Exercises Column -->
     <ng-container matColumnDef="exercisesSolved">
       <th mat-header-cell *matHeaderCellDef> Exercises Solved </th>
-      <td mat-cell *matCellDef="let element"> {{element.exercisesSolved}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.exercises_solved}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

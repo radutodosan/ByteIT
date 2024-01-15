@@ -46,7 +46,7 @@ export class AuthenticationService {
   getAllUsers(){
       const url = "http://localhost/backend/leaderboard.php";
 
-      return this.http.get<User[]>(url);
+      return this.http.get<any>(url);
   }
 
 }

@@ -18,7 +18,7 @@ CREATE TABLE `courses` (
 );
 
 
-CREATE TABLE `exercise` (
+CREATE TABLE `exercises` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `title` varchar(255),
   `description` varchar(255),
