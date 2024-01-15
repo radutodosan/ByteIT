@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AlertService} from "../services/alert.service";
 import {AlertType} from "../enums/alert-type";
+import {AuthenticationService} from "../services/authentication.service";
 
 @Component({
   selector: 'app-subscription-pop-up',
@@ -11,19 +12,29 @@ import {AlertType} from "../enums/alert-type";
 export class SubscriptionPopUpComponent {
   subscriptionForm!: FormGroup;
 
+  loggedUser : any;
+
   constructor(
     private formBuilder: FormBuilder,
     private alertService: AlertService,
+    private authService: AuthenticationService
   ) {
   }
 
+
+
   ngOnInit(): void {
+    this.loggedUser = this.authService.loggedUser;
+
     this.subscriptionForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      email: ['', Validators.required],
-      name: ['', Validators.required],
-      subscription: ['', Validators.required],
+      username: [this.loggedUser.username, Validators.required],
+      email: [this.loggedUser.email, Validators.required],
+      name: [this.loggedUser.fullname, Validators.required],
+      subscription: [this.loggedUser.subscription, Validators.required],
     });
+
+    console.log(this.loggedUser);
+
   }
 
   showAlert(type:AlertType, text:String){

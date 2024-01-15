@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AlertService} from "../services/alert.service";
 import {AlertType} from "../enums/alert-type";
+import {AuthenticationService} from "../services/authentication.service";
 
 @Component({
   selector: 'app-edit-profile-pop-up',
@@ -11,18 +12,23 @@ import {AlertType} from "../enums/alert-type";
 export class EditProfilePopUpComponent {
   editProfileForm!: FormGroup;
 
+  loggedUser : any;
+
   constructor(
     private formBuilder: FormBuilder,
     private alertService: AlertService,
+    private authService: AuthenticationService
   ) {
   }
 
   ngOnInit(): void {
+    this.loggedUser = this.authService.loggedUser;
+
     this.editProfileForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      email: ['', Validators.required],
-      name: ['', Validators.required],
+      username: [this.loggedUser.username, Validators.required],
+      password: [this.loggedUser.password, Validators.required],
+      email: [this.loggedUser.email, Validators.required],
+      name: [this.loggedUser.fullname, Validators.required],
       confirmPassword: ['', Validators.required]
     });
   }
