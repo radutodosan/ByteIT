@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AlertService} from "../services/alert.service";
 import {AlertType} from "../enums/alert-type";
 import {AuthenticationService} from "../services/authentication.service";
+import {HttpClient} from "@angular/common/http";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-subscription-pop-up',
@@ -17,7 +19,9 @@ export class SubscriptionPopUpComponent {
   constructor(
     private formBuilder: FormBuilder,
     private alertService: AlertService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private http:HttpClient,
+    private router: Router
   ) {
   }
 
@@ -45,7 +49,33 @@ export class SubscriptionPopUpComponent {
   }
 
   subscribe(){
-    this.showAlert(AlertType.INFO,'Subscription Updated Successfully!');
+    const url = "http://localhost/backend/subscription.php?";
+    var data = this.subscriptionForm.value;
+    this.http.post(url, data, {responseType: 'text'}).subscribe(
+      (response) => {
+        console.log('Response:', response);
+        this.closeModal();
+
+        if(response.includes("failed")){
+          this.showAlert(AlertType.ERROR,'Subscription Update FAILED! Please try again!');
+        }
+        else
+          this.showAlert(AlertType.INFO,'Subscription Updated Successfully!');
+
+        this.authService.loggedUser.subscription = this.subscriptionForm.value.subscription;
+
+        const currentUrl = this.router.url;
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate([currentUrl]);
+        });
+
+      },
+      (error)=>{
+        console.error("ERROR! EDIT FAILED!", error);
+        this.showAlert(AlertType.ERROR,'Subscription Update FAILED! Please try again!');
+      },
+
+    )
   }
 
 

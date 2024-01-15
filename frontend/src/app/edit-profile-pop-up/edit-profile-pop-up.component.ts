@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AlertService} from "../services/alert.service";
 import {AlertType} from "../enums/alert-type";
 import {AuthenticationService} from "../services/authentication.service";
+import {HttpClient} from "@angular/common/http";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-edit-profile-pop-up',
@@ -17,9 +19,10 @@ export class EditProfilePopUpComponent {
   constructor(
     private formBuilder: FormBuilder,
     private alertService: AlertService,
-    private authService: AuthenticationService
-  ) {
-  }
+    private authService: AuthenticationService,
+    private http:HttpClient,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loggedUser = this.authService.loggedUser;
@@ -41,7 +44,35 @@ export class EditProfilePopUpComponent {
   }
 
   editProfile(){
-    this.showAlert(AlertType.INFO,'Profile Updated Successfully!');
+    const url = "http://localhost/backend/edit-profile.php?";
+    var data = this.editProfileForm.value;
+    this.http.post(url, data, {responseType: 'text'}).subscribe(
+      (response) => {
+        console.log('Response:', response);
+        this.closeModal();
+
+        if(response.includes("failed")){
+          this.showAlert(AlertType.ERROR,'There was an error editing your profile. Please try again!');
+        }
+        else
+          this.showAlert(AlertType.SUCCESS,'Profile Updated Successfully!');
+
+          this.authService.loggedUser.fullname = this.editProfileForm.value.username;
+          this.authService.loggedUser.email = this.editProfileForm.value.email;
+          this.authService.loggedUser.password = this.editProfileForm.value.password;
+
+        const currentUrl = this.router.url;
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate([currentUrl]);
+          });
+
+      },
+      (error)=>{
+        console.error("ERROR! EDIT FAILED!", error);
+        this.showAlert(AlertType.ERROR,'There was an error editing your profile. Please try again!  ');
+      },
+
+    )
   }
 
 
