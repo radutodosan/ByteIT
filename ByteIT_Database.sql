@@ -22,6 +22,6 @@ CREATE TABLE `exercise` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `title` varchar(255),
   `description` varchar(255),
-  `course_id` integer
+  `solution` varchar(255)
 );
 
