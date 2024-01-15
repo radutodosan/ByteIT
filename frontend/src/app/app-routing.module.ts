@@ -12,7 +12,7 @@ import {CompilerComponent} from "./compiler/compiler.component";
 const routes: Routes = [
   {path: 'welcome', component: WelcomeComponent},
   {path: 'courses', component: CoursesComponent},
-  {path: 'courses/:title', component: CoursePageComponent},
+  {path: 'courses/:name', component: CoursePageComponent},
   {path: 'exercises', component: ExercisesComponent},
   {path: 'compiler', component: CompilerComponent},
   {path: 'whiteboard', component: WhiteboardComponent},

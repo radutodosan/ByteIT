@@ -4,7 +4,6 @@ import {AuthenticationService} from "../services/authentication.service";
 import {Router} from "@angular/router";
 import {AlertService} from "../services/alert.service";
 import {AlertType} from "../enums/alert-type";
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-settings',
@@ -26,42 +25,14 @@ export class UserSettingsComponent implements OnInit{
     private authService: AuthenticationService,
     private router: Router,
     private alertService: AlertService,
-    private http:HttpClient,
   ) {
     this.animate();
   }
 
-  getAll(){
-    const username = this.authService.loggedUser.name;
-    const url = "http://localhost/backend/user-settings.php?username=" + username;
-    return this.http.get(url);
-  }
   ngOnInit(): void {
-    // this.user$ = this.authService.getLoggedUser().pipe(
-    //   tap((user: User) => {
-    //
-    //     this.authService.loggedUser = user;
-    //     console.log(' > Received user:', this.authService.loggedUser);
-    //   }),
-    //   catchError((error) => {
-    //     console.error('Error fetching enrolled activities:', error);
-    //     return [];
-    //   }),
-    // );
 
     this.loggedUser = this.authService.loggedUser;
     console.log(this.loggedUser);
-
-    // this.getAll().subscribe(
-    //   (data: any) => {
-    //     // console.log("DATA = ", data);
-    //     this.loggedUser = data;
-    //     console.log("LOGGED USER = ", this.loggedUser);
-    //   },
-    //   (err) => {
-    //     console.log("ERROR: ", err);
-    //   }
-    // )
 
     if (this.currentTheme) {
       document.documentElement.setAttribute('data-theme', this.currentTheme);

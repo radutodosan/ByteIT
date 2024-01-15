@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {CoursesService} from "./services/courses.service";
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,9 @@ export class AppComponent implements OnInit{
   title = 'TW-Frontend';
 
   currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
-  constructor() {
+  constructor(
+    private coursesServices: CoursesService
+  ) {
 
   }
 
@@ -18,6 +21,12 @@ export class AppComponent implements OnInit{
     if (this.currentTheme) {
       document.documentElement.setAttribute('data-theme', this.currentTheme);
     }
+
+    const observable$ = this.coursesServices.getCourses();
+    observable$.subscribe(courses => {
+      this.coursesServices.coursesList = courses.data;
+    })
+
   }
 
 
