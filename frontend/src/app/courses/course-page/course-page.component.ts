@@ -31,9 +31,6 @@ export class CoursePageComponent implements OnInit{
   ngOnInit(){
     this.courseTitle = this.activatedRoute.snapshot.paramMap.get('name');
 
-
-    console.log(this.courseService.coursesList);
-
     this.course = this.courseService.coursesList.find(x=> x.name == this.courseTitle)
     console.log(this.course)
 

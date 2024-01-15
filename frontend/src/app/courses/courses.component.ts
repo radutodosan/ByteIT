@@ -25,6 +25,7 @@ export class CoursesComponent implements OnInit{
 
   constructor(private coursesServices: CoursesService, private router: Router) {
     this.animate();
+
   }
 
   number(level:Levels){
@@ -48,17 +49,14 @@ export class CoursesComponent implements OnInit{
     return nr == this.currentValue;
   }
   ngOnInit(): void {
-    const observable$ = this.coursesServices.getCourses();
-    observable$.subscribe(courses => {
-      this.coursesServices.coursesList = courses.data;
-    })
+
+    this.coursesServices.getAllCourses();
+    localStorage.setItem("coursesList", JSON.stringify(this.coursesServices.coursesList));
 
     this.coursesList = this.coursesServices.coursesList.filter((obj) =>{
-      console.log(this.number(obj.level));
       return this.number(obj.level);
 
     })
-
 
   }
 

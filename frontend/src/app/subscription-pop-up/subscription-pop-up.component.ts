@@ -81,7 +81,6 @@ export class SubscriptionPopUpComponent {
 
   closeModal() {
     const loginModal = document.getElementById("subscriptionModal");
-    console.log("Sign up modal closed");
     if (loginModal != null) {
       loginModal.style.display = 'none';
     }

@@ -78,7 +78,6 @@ export class EditProfilePopUpComponent {
 
   closeModal() {
     const loginModal = document.getElementById("editProfileModal");
-    console.log("Sign up modal closed");
     if (loginModal != null) {
       loginModal.style.display = 'none';
     }
