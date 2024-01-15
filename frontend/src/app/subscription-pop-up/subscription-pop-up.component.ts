@@ -63,6 +63,7 @@ export class SubscriptionPopUpComponent {
           this.showAlert(AlertType.INFO,'Subscription Updated Successfully!');
 
         this.authService.loggedUser.subscription = this.subscriptionForm.value.subscription;
+        localStorage.setItem("loggedUser", JSON.stringify(this.authService.loggedUser));
 
         const currentUrl = this.router.url;
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {

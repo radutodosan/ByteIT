@@ -78,10 +78,11 @@ loginUser(){
         const observable$ = this.authService.authenticateUser(username);
         observable$.subscribe(loggedUser => {
           this.authService.loggedUser = loggedUser.data[0]
+          console.log(this.authService.loggedUser);
+          localStorage.setItem("loggedUser", JSON.stringify(this.authService.loggedUser));
         })
 
-        localStorage.setItem("loggedUser", JSON.stringify(this.authService.loggedUser));
-        console.log(this.authService.loggedUser);
+
 
         this.closeModal();
         this.showAlert(AlertType.SUCCESS,'Login Successful!');

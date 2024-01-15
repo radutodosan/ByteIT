@@ -57,9 +57,10 @@ export class EditProfilePopUpComponent {
         else
           this.showAlert(AlertType.SUCCESS,'Profile Updated Successfully!');
 
-          this.authService.loggedUser.fullname = this.editProfileForm.value.username;
+          this.authService.loggedUser.fullname = this.editProfileForm.value.name;
           this.authService.loggedUser.email = this.editProfileForm.value.email;
           this.authService.loggedUser.password = this.editProfileForm.value.password;
+          localStorage.setItem("loggedUser", JSON.stringify(this.authService.loggedUser));
 
         const currentUrl = this.router.url;
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
