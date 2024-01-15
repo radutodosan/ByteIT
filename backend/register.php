@@ -54,6 +54,7 @@ $password = htmlspecialchars(trim($data->password));
 $confirm_password = htmlspecialchars(trim($data->confirmPassword));
 $subscription = "no_subscription";
 $level = "introduction";
+$exercises_solved = 0;
 
 
 $can_insert = 1;
@@ -71,8 +72,8 @@ if(mysqli_num_rows($query_result) > 0) // if email already in db
 
 
 if($can_insert == 1){
-    $query = "INSERT INTO `".$table_name."`(username, email, fullname, password, subscription, level)
-    VALUES ('".$username."', '".$email."', '".$name."', '".$password."', '".$subscription."', '".$level."')";
+    $query = "INSERT INTO `".$table_name."`(username, fullname, email, password, subscription, level, exercises_solved)
+    VALUES ('".$username."', '".$name."', '".$email."', '".$password."', '".$subscription."', '".$level."', '".$exercises_solved."')";
     
     
     $stmt = $conn->prepare($query);

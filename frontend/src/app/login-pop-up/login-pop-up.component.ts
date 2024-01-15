@@ -18,6 +18,8 @@ import {Router} from "@angular/router";
 export class LoginPopUpComponent implements OnInit {
   loginForm!: FormGroup;
 
+
+
   animationState: boolean = false;
 
   constructor(
@@ -73,11 +75,14 @@ loginUser(){
       }
       else{
         var username = data["username"];
-        var fullname = data["fullname"];
-        var email = data["email"];
-        var subscription = data["subscription"];
-        var level = data["level"];
-        this.authService.authenticateUser(username, fullname, email, subscription, level);
+        const observable$ = this.authService.authenticateUser(username);
+        observable$.subscribe(loggedUser => {
+          this.authService.loggedUser = loggedUser.data[0]
+        })
+
+        localStorage.setItem("loggedUser", JSON.stringify(this.authService.loggedUser));
+        console.log(this.authService.loggedUser);
+
         this.closeModal();
         this.showAlert(AlertType.SUCCESS,'Login Successful!');
         setTimeout(() => {
@@ -88,7 +93,6 @@ loginUser(){
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
           this.router.navigate([currentUrl]);
         });
-        console.log("User: " + username + "\nName: " + fullname +"\nEmail: " + email + "\nSubscription: " + subscription, "\nLevel: " + level);
       }
 
 

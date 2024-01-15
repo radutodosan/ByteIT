@@ -18,6 +18,7 @@ export class UserSettingsComponent implements OnInit{
   animationState:boolean = false;
 
   loggedUser: any;
+  // user$: Observable<User> | undefined;
 
   currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
   checkedTheme!: boolean;
@@ -36,16 +37,31 @@ export class UserSettingsComponent implements OnInit{
     return this.http.get(url);
   }
   ngOnInit(): void {
-    this.getAll().subscribe(
-      (data: any) => {
-        // console.log("DATA = ", data);
-        this.loggedUser = data;
-        console.log("LOGGED USER = ", this.loggedUser);
-      },
-      (err) => {
-        console.log("ERROR: ", err);
-      }
-    )
+    // this.user$ = this.authService.getLoggedUser().pipe(
+    //   tap((user: User) => {
+    //
+    //     this.authService.loggedUser = user;
+    //     console.log(' > Received user:', this.authService.loggedUser);
+    //   }),
+    //   catchError((error) => {
+    //     console.error('Error fetching enrolled activities:', error);
+    //     return [];
+    //   }),
+    // );
+
+    this.loggedUser = this.authService.loggedUser;
+    console.log(this.loggedUser);
+
+    // this.getAll().subscribe(
+    //   (data: any) => {
+    //     // console.log("DATA = ", data);
+    //     this.loggedUser = data;
+    //     console.log("LOGGED USER = ", this.loggedUser);
+    //   },
+    //   (err) => {
+    //     console.log("ERROR: ", err);
+    //   }
+    // )
 
     if (this.currentTheme) {
       document.documentElement.setAttribute('data-theme', this.currentTheme);
